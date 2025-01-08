@@ -1,7 +1,7 @@
 const taskList = document.getElementById('task-list');
 const loadTasks = async () => {
     try {
-        const response = await fetch('http://10.6.131.191:8081/tasks');
+        const response = await fetch('http://10.6.131.191:3000/tasks');
         const tasks = await response.json();
         tasks.forEach(task => {
             const taskItem = document.createElement('li');
