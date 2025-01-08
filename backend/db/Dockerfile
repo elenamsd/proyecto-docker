@@ -6,7 +6,7 @@ ENV POSTGRES_USER=admin \
     POSTGRES_DB=test
 
 # Copiar el script de inicialización al contenedor
-COPY ./db/init.sql /docker-entrypoint-initdb.d/
+COPY ./init.sql /docker-entrypoint-initdb.d/
 
 # Exponer el puerto 5432 para conexiones externas
 EXPOSE 5432
