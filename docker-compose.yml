@@ -8,8 +8,10 @@ services:
     volumes:
       - ./backend:/app
       - /app/node_modules
-    depends_on:
-      - postgres
+    environment:
+      - POSTGRES_HOST=10.6.131.191  # Dirección IP del contenedor postgres (máquina 2)
+    networks:
+      - backend_network
 
   postgres:
     build:
@@ -19,6 +21,8 @@ services:
       - "5432:5432"
     volumes:
       - postgres_data:/var/lib/postgresql/data
+    networks:
+      - backend_network
 
   frontend:
     build:
@@ -26,6 +30,16 @@ services:
     container_name: frontend-container
     ports:
       - "8080:80"
+    environment:
+      - API_URL=http://10.6.129.133:8081  # Dirección del contenedor backend (máquina 1)
+    networks:
+      - frontend_network
 
 volumes:
   postgres_data:
+
+networks:
+  backend_network:
+    driver: bridge
+  frontend_network:
+    driver: bridge
